@@ -11,6 +11,7 @@ Lab project. Postgres -> Debezium -> Kafka -> Flink SQL, all in docker compose.
 ```bash
 cp .env.example .env
 cp secrets.properties.example secrets.properties
+./scripts/fetch-flink-jars.sh    # downloads Kafka SQL connector into flink-lib/
 docker compose up -d
 ```
 
