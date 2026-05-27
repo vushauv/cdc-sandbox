@@ -17,8 +17,8 @@ services:
     ports:
      - 5432:5432
     environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_USER=${POSTGRES_USER}
+     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   connect:
     image: quay.io/debezium/connect:${DEBEZIUM_VERSION}
@@ -28,11 +28,15 @@ services:
      - kafka
      - postgres
     environment:
+     - CONNECT_CONFIG_PROVIDERS=file
+     - CONNECT_CONFIG_PROVIDERS_FILE_CLASS=org.apache.kafka.common.config.provider.FileConfigProvider
      - BOOTSTRAP_SERVERS=kafka:9092
      - GROUP_ID=1
      - CONFIG_STORAGE_TOPIC=my_connect_configs
      - OFFSET_STORAGE_TOPIC=my_connect_offsets
      - STATUS_STORAGE_TOPIC=my_connect_statuses
+    volumes:
+     - ./secrets.properties:/kafka/secrets.properties:ro
 # For testing newer connector versions, unpack the connector archive into this
 # directory and uncomment the lines below
 #    volumes:
