@@ -2,10 +2,6 @@
 
 Lab project. Postgres -> Debezium -> Kafka -> Flink SQL, all in docker compose.
 
-## Diagram
-
-(drawn separately)
-
 ## Run
 
 ```bash
